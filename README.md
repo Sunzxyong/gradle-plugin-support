@@ -1,5 +1,5 @@
 # **Gradle Plugin Support**
-The IDEA plugin for help to create and develop a standard Gradle Plugin project.
+The IDEA plugin for help to create and develop a standard Gradle Plugin project. Includes generate the standard Gradle Plugin module、BuildSrc module and Groovy Class.
 
 <img src="https://raw.githubusercontent.com/Sunzxyong/ImageRepository/master/gradle-plugin-support.jpg" width="600" />
 
