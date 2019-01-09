@@ -1,0 +1,1 @@
+implementation-class=${packageName}.${className}

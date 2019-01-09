@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<template
+    format="5"
+    revision="5"
+    name="Gradle Plugin Module"
+    description="Creates a new Gradle Plugin module.">
+
+    <category value="Application" />
+
+    <thumbs>
+        <thumb>template_new_project.png</thumb>
+    </thumbs>
+
+    <parameter
+        id="projectName"
+        name="Gradle plugin name"
+        type="string"
+        constraints="nonempty|module|unique"
+        default="lib"/>
+
+    <parameter
+        id="packageName"
+        name="Groovy package name"
+        type="string"
+        constraints="nonempty|package"
+        default="com.example"/>
+
+    <parameter
+        id="className"
+        name="Groovy class name"
+        type="string"
+        constraints="nonempty|class"
+        default="MyGroovyClass"/>
+
+    <parameter
+        id="makeIgnore"
+        name="Create .gitignore file"
+        type="boolean"
+        default="true" />
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>

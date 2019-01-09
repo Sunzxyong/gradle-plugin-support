@@ -1,0 +1,55 @@
+<idea-plugin>
+    <!--<id>com.zxy.idea.plugin.gradle-plugin-support</id>-->
+    <name>Gradle Plugin Support</name>
+    <vendor email="zhengxiaoyong0808@gmail.com" url="https://github.com/Sunzxyong">郑晓勇</vendor>
+
+    <depends>org.jetbrains.plugins.gradle</depends>
+    <depends>org.jetbrains.android</depends>
+    <depends>org.intellij.groovy</depends>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+
+    </extensions>
+
+    <actions>
+        <group id="NewGradlePluginModuleGroup">
+            <action id="com.zxy.idea.plugin.gradle.plugin.support.action.BuildSrcNewModuleAction"
+                    class="com.zxy.idea.plugin.gradle.plugin.support.action.BuildSrcNewModuleAction"
+                    text="New BuildSrc Module..."
+                    description="Create a new BuildSrc module"/>
+            <action id="com.zxy.idea.plugin.gradle.plugin.support.action.GradlePluginNewModuleAction"
+                    class="com.zxy.idea.plugin.gradle.plugin.support.action.GradlePluginNewModuleAction"
+                    text="New Gradle Plugin Module..."
+                    description="Create a new Gradle Plugin module"/>
+            <add-to-group group-id="NewProjectOrModuleGroup" anchor="after" relative-to-action="NewModule"/>
+        </group>
+
+        <group id="NewGradlePluginModuleInGroupGroup">
+            <action id="com.zxy.idea.plugin.gradle.plugin.support.action.BuildSrcNewModuleInGroupAction"
+                    class="com.zxy.idea.plugin.gradle.plugin.support.action.BuildSrcNewModuleInGroupAction"
+                    text="BuildSrc Module"
+                    icon="AllIcons.Nodes.Module"
+                    description="Create a new BuildSrc module"/>
+            <action id="com.zxy.idea.plugin.gradle.plugin.support.action.GradlePluginNewModuleInGroupAction"
+                    class="com.zxy.idea.plugin.gradle.plugin.support.action.GradlePluginNewModuleInGroupAction"
+                    text="Gradle Plugin Module"
+                    icon="AllIcons.Nodes.Module"
+                    description="Create a new Gradle Plugin module"/>
+            <add-to-group group-id="NewGroup1" anchor="after" relative-to-action="NewModuleInGroup"/>
+        </group>
+
+        <action id="com.zxy.idea.plugin.gradle.plugin.support.action.NewGroovyClassAction"
+                class="com.zxy.idea.plugin.gradle.plugin.support.action.NewGroovyClassAction"
+                text="Groovy Class"
+                description="Create a new Groovy class">
+            <add-to-group group-id="NewGroup1" anchor="after" relative-to-action="NewClass"/>
+        </action>
+    </actions>
+</idea-plugin>
