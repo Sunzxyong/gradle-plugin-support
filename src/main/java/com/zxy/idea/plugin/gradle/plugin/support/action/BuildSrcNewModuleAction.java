@@ -1,5 +1,6 @@
 package com.zxy.idea.plugin.gradle.plugin.support.action;
 
+import com.android.tools.idea.gradle.project.GradleProjectInfo;
 import com.android.tools.idea.npw.template.TemplateHandle;
 import com.android.tools.idea.projectsystem.ProjectSystemUtil;
 import com.android.tools.idea.sdk.wizard.SdkQuickfixUtils;
@@ -28,7 +29,7 @@ public class BuildSrcNewModuleAction extends AnAction implements DumbAware {
     @Override
     public void actionPerformed(AnActionEvent event) {
         Project project = event.getProject();
-        boolean isAvailable = project != null && ProjectSystemUtil.getProjectSystem(project).allowsFileCreation();
+        boolean isAvailable = project != null && ProjectSystemUtil.getProjectSystem(project).allowsFileCreation() && GradleProjectInfo.getInstance(project).isBuildWithGradle();
         if (!isAvailable)
             return;
 
@@ -61,7 +62,7 @@ public class BuildSrcNewModuleAction extends AnAction implements DumbAware {
     @Override
     public void update(AnActionEvent event) {
         Project project = event.getProject();
-        boolean isAvailable = project != null && ProjectSystemUtil.getProjectSystem(project).allowsFileCreation();
+        boolean isAvailable = project != null && ProjectSystemUtil.getProjectSystem(project).allowsFileCreation() && GradleProjectInfo.getInstance(project).isBuildWithGradle();
         event.getPresentation().setVisible(isAvailable);
         event.getPresentation().setEnabled(isAvailable && getEventProject(event) != null);
     }

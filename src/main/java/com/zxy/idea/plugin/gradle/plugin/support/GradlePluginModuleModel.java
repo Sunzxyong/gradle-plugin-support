@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +77,22 @@ public class GradlePluginModuleModel extends WizardModel {
     @Override
     protected void handleFinished() {
         createModule();
+        deleteTemplateDirectory();
+    }
+
+    @Override
+    protected void handleSkipped() {
+        super.handleSkipped();
+        deleteTemplateDirectory();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        deleteTemplateDirectory();
+    }
+
+    private void deleteTemplateDirectory() {
         try {
             if (mTemplateDirectory != null)
                 FileUtils.deletePath(mTemplateDirectory);
@@ -88,11 +105,19 @@ public class GradlePluginModuleModel extends WizardModel {
 
         Map<String, Object> templateValues = Maps.newHashMap();
 
-        new TemplateValueInjector(templateValues)
+        TemplateValueInjector templateValueInjector = new TemplateValueInjector(templateValues)
                 .setModuleRoots(GradlePluginModuleTemplate.createDefaultTemplateAt(moduleRoot).getPaths(), packageName().get())
-                .setProjectDefaults(mProject, "", false)
-                .setJavaVersion(mProject)
-                .addGradleVersions(mProject);
+                .setJavaVersion(mProject);
+
+        try {
+            Method method = TemplateValueInjector.class.getDeclaredMethod("setProjectDefaults", Project.class, String.class, Boolean.class);
+            method.setAccessible(true);
+            method.invoke(templateValueInjector, mProject, "", false);
+        } catch (Exception e) {
+            templateValueInjector.setProjectDefaults(mProject, "");
+        }
+
+        templateValueInjector.addGradleVersions(mProject);
 
         templateValues.put(TemplateMetadata.ATTR_CLASS_NAME, className().get());
         templateValues.put(TemplateMetadata.ATTR_MAKE_IGNORE, createGitIgnore().get());

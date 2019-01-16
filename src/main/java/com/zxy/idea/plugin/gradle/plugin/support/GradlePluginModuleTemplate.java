@@ -6,6 +6,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by zhengxiaoyong on 2019/01/07.
@@ -56,7 +59,6 @@ public class GradlePluginModuleTemplate implements AndroidModuleTemplate {
     }
 
     @Nullable
-    @Override
     public File getResDirectory() {
         return mResDirectory;
     }
@@ -73,4 +75,12 @@ public class GradlePluginModuleTemplate implements AndroidModuleTemplate {
         return null;
     }
 
+    @NotNull
+    public List<File> getResDirectories() {
+        try {
+            return Arrays.asList(mResDirectory.listFiles());
+        } catch (Exception e) {
+        }
+        return Collections.singletonList(mResDirectory);
+    }
 }
